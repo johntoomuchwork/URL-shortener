@@ -1,0 +1,11 @@
+# SQLite database (created at runtime)
+urls.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env

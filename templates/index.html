@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener</title>
+  <style>
+    /* ── Basic page styling ── */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      padding: 60px 16px;
+      margin: 0;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 40px;
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+    }
+
+    p.subtitle {
+      color: #666;
+      margin: 0 0 28px;
+    }
+
+    /* ── Form ── */
+    input[type="url"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      background: #4361ee;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #3451d1; }
+
+    /* ── Result box ── */
+    .result {
+      margin-top: 24px;
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .result p { margin: 0 0 6px; color: #444; font-size: 0.9rem; }
+
+    .result a {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #4361ee;
+      word-break: break-all;
+    }
+
+    /* ── Error box ── */
+    .error {
+      margin-top: 16px;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: #b91c1c;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔗 URL Shortener</h1>
+    <p class="subtitle">Paste a long URL below and get a short link instantly.</p>
+
+    <!-- Form: submits a POST request to the same "/" route -->
+    <form method="POST" action="/">
+      <input
+        type="url"
+        name="long_url"
+        placeholder="https://example.com/very/long/url"
+        required
+      />
+      <button type="submit">Shorten URL</button>
+    </form>
+
+    <!-- Show error message if validation failed -->
+    {% if error %}
+      <div class="error">⚠️ {{ error }}</div>
+    {% endif %}
+
+    <!-- Show the short URL after a successful submission -->
+    {% if short_url %}
+      <div class="result">
+        <p>Your short link is ready:</p>
+        <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
